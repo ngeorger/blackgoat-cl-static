@@ -1,0 +1,2 @@
+function ucDocReady(fn){if(document.readyState==="complete"||document.readyState==="interactive"){setTimeout(fn,1);}else{document.addEventListener("DOMContentLoaded",fn);}}
+ucDocReady(function(){window.parent.g_objUCElementorEditorAdmin.initFrontEndInteraction(window,elementorFrontend);});

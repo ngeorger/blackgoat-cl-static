@@ -1,0 +1,3 @@
+jQuery(function($){'use strict';var select={selectAllNone:function(event){event.preventDefault();var $this=$(this),$element=$this.parent().siblings('select');if('none'===$this.data('type')){$element.val([]).trigger('change');return;}
+var selected=[];$element.find('option').each(function(index,option){selected.push(option.value);});$element.val(selected).trigger('change');},bindEvents:function($el){$el.closest('.rwmb-input').on('click','.rwmb-select-all-none a',select.selectAllNone);}};function update(){select.bindEvents($(this));}
+$('.rwmb-select').each(update);$(document).on('clone','.rwmb-select',update);window.rwmbSelect=select;});

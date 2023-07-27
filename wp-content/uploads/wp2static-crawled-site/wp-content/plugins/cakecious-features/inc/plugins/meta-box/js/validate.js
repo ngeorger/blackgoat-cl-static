@@ -1,0 +1,5 @@
+jQuery(function($){'use strict';var rules={invalidHandler:function(){$('#publish').removeClass('button-primary-disabled');$('#ajax-loading').attr('style','');$form.siblings('#message').remove();$form.before('<div id="message" class="error"><p>'+rwmbValidate.summaryMessage+'</p></div>');},ignore:':not([class|="rwmb"])',errorPlacement:function(error,element){error.appendTo(element.closest('.rwmb-input'));},errorClass:'rwmb-error',errorElement:'p'};var $form=$('#post, .rwmb-form');if(!$form.length){$form=$('#your-profile');}
+if(!$form.length){$form=$('#edittag');}
+$('.rwmb-validation-rules').each(function(){var subRules=$(this).data('rules');$.extend(true,rules,subRules);$.each(subRules.rules,function(k,v){if(!v['required']){return;}
+var $el=$('[name="'+k+'"]');if(!$el.length){return;}
+$el.closest('.rwmb-input').siblings('.rwmb-label').append('<span class="rwmb-required">*</span>');});});$form.validate(rules);});

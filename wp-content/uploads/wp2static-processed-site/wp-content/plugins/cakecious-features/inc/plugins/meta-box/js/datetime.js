@@ -1,0 +1,8 @@
+jQuery(function($){'use strict';function update(){var $this=$(this),options=$this.data('options'),$inline=$this.siblings('.rwmb-datetime-inline'),$timestamp=$this.siblings('.rwmb-datetime-timestamp'),current=$this.val(),$picker=$inline.length?$inline:$this;$this.siblings('.ui-datepicker-append').remove();if($timestamp.length){options.onClose=options.onSelect=function(){$timestamp.val(getTimestamp($picker.datetimepicker('getDate')));};}
+if($inline.length){options.altField='#'+$this.attr('id');$this.on('keydown',_.debounce(function(){$picker.datepicker('setDate',$this.val()).find(".ui-datepicker-current-day").trigger("click");},600));$inline.removeClass('hasDatepicker').empty().prop('id','').datetimepicker(options).datetimepicker('setDate',current);}
+else{$this.removeClass('hasDatepicker').datetimepicker(options);}}
+function getTimestamp(date){if(date===null){return "";}
+var milliseconds=Date.UTC(date.getFullYear(),date.getMonth(),date.getDate(),date.getHours(),date.getMinutes(),date.getSeconds());return Math.floor(milliseconds/1000);}
+$.timepicker.setDefaults($.timepicker.regional[""]);if($.timepicker.regional.hasOwnProperty(RWMB_Datetime.locale)){$.timepicker.setDefaults($.timepicker.regional[RWMB_Datetime.locale]);}
+else if($.timepicker.regional.hasOwnProperty(RWMB_Datetime.localeShort)){$.timepicker.setDefaults($.timepicker.regional[RWMB_Datetime.localeShort]);}
+$('.rwmb-datetime').each(update);$(document).on('clone','.rwmb-datetime',update);});

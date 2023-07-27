@@ -1,0 +1,3 @@
+jQuery(function($){'use strict';function update(){var $this=$(this),$container=$this.closest('.wp-picker-container'),data=$.extend({change:function(){$(this).trigger('color:change');},clear:function(){$(this).trigger('color:clear');}},$this.data('options'));if($container.length>0){$this.insertBefore($container);$container.remove();}
+$this.wpColorPicker(data);}
+$('.rwmb-color').each(update);$(document).on('clone','.rwmb-color',update);});

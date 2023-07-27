@@ -1,0 +1,5 @@
+jQuery(function($){'use strict';function reorderSelected($select2){var selected=$select2.data('selected');if(!selected){return;}
+selected.forEach(function(value){var option=$select2.children('[value="'+value+'"]');option.detach();$select2.append(option);});$select2.trigger('change');}
+function update(){var $this=$(this),options=$this.data('options');$this.removeClass('select2-hidden-accessible');$this.siblings('.select2-container').remove();$this.show().select2(options);rwmbSelect.bindEvents($this);if(!$this.attr('multiple')){return;}
+reorderSelected($this);$this.on('select2:select',function(event){var option=$this.children('[value="'+event.params.data.id+'"]');option.detach();$this.append(option).trigger('change');});}
+$('.rwmb-select_advanced').each(update);$(document).on('clone','.rwmb-select_advanced',update);});

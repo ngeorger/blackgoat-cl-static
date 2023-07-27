@@ -1,0 +1,11 @@
+jQuery(function($){'use strict';function update(){var $this=$(this),$wrapper=$this.closest('.wp-editor-wrap'),id=$this.attr('id');if(tinyMCEPreInit.mceInit[id]){return;}
+var originalId=getOriginalId($this);if(!originalId){return;}
+$this.show();updateDom($wrapper,id);if(tinyMCEPreInit.mceInit.hasOwnProperty(originalId)){var settings=tinyMCEPreInit.mceInit[originalId],editor=new tinymce.Editor(id,settings,tinymce.EditorManager);editor.render();}
+if(typeof quicktags==='function'&&tinyMCEPreInit.qtInit.hasOwnProperty(originalId)){var qtSettings=tinyMCEPreInit.qtInit[originalId];qtSettings.id=id;quicktags(qtSettings);QTags._buttonsInit();}}
+function getOriginalId($el){var $clone=$el.closest('.rwmb-clone'),currentId=$clone.find('.rwmb-wysiwyg').attr('id');if(/_\d+$/.test(currentId)){currentId=currentId.replace(/_\d+$/,'');}
+if(tinyMCEPreInit.mceInit.hasOwnProperty(currentId)||tinyMCEPreInit.qtInit.hasOwnProperty(currentId)){return currentId;}
+return '';}
+function updateDom($wrapper,id){$wrapper.attr('id','wp-'+id+'-wrap').removeClass('html-active').addClass('tmce-active').find('.mce-container').remove().end().find('.wp-editor-tools').attr('id','wp-'+id+'-editor-tools').find('.wp-media-buttons').attr('id','wp-'+id+'-media-buttons').find('button').data('editor',id).attr('data-editor',id);$wrapper.find('.switch-tmce').attr('id',id+'tmce').data('wp-editor-id',id).attr('data-wp-editor-id',id).end().find('.switch-html').attr('id',id+'html').data('wp-editor-id',id).attr('data-wp-editor-id',id);$wrapper.find('.wp-editor-container').attr('id','wp-'+id+'-editor-container').find('.quicktags-toolbar').attr('id','qt_'+id+'_toolbar').html('');}
+function ensureSave(){if(!wp.data||!wp.data.hasOwnProperty('subscribe')||!window.tinyMCE){return;}
+wp.data.subscribe(function(){var editor=wp.data.hasOwnProperty('select')?wp.data.select('core/editor'):{};if(editor&&editor.isSavingPost&&editor.isSavingPost()){window.tinyMCE.triggerSave();}});}
+$('.rwmb-wysiwyg').each(update);$(document).on('clone','.rwmb-wysiwyg',update);ensureSave();});
